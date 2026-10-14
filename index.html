@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<script>(function(){function fmt(a){if(a instanceof Error)return a.message;if(typeof a==="object"&&a!==null){try{return JSON.stringify(a)}catch(e){return String(a)}}return String(a)}function send(t,m,l){try{parent.postMessage({__stc:1,type:t,msg:m,line:l},"*")}catch(e){}}["log","info","warn","error"].forEach(function(m){var o=console[m];console[m]=function(){send(m,Array.prototype.map.call(arguments,fmt).join(" "));if(o)o.apply(console,arguments)}});window.addEventListener("error",function(e){send("error",e.message,e.lineno)});window.addEventListener("unhandledrejection",function(e){send("error","Promise: "+fmt(e.reason))});})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Хлеб на закваске</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+.cards { display: flex; gap: 16px; padding: 16px; flex-wrap: wrap; }
+.card {
+    flex: 1 1 180px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.1);
+}
+</style>
+</head>
+<body>
+
+    <!-- Навигация -->
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-tab="builder">🍞 Собрать</button>
+        <button class="nav-btn" data-tab="about">📖 О хлебе</button>
+        <button class="nav-btn" data-tab="ingredients">🌾 Состав</button>
+        <button class="nav-btn" data-tab="order">📦 Заказ</button>
+    </nav>
+
+    <!-- ВКЛАДКА: Конструктор -->
+    <section id="tab-builder" class="tab active">
+        <div class="header">
+            <h1>🍞 Собери свой хлеб</h1>
+            <p class="subtitle">Бездрожжевой, на ржаной закваске</p>
+        </div>
+
+        <div class="builder">
+            <!-- Шаг 1: Основа -->
+            <div class="step">
+                <h2>1. Выбери основу</h2>
+                <div class="options">
+                    <label class="option-card">
+                        <input type="radio" name="base" value="rye" checked>
+                        <div class="card-content">
+                            <span class="emoji"></span>
+                            <div>
+                                <strong>Ржаная</strong>
+                                <span class="desc">Цельнозерновая, насыщенный вкус</span>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="base" value="wheat1">
+                        <div class="card-content">
+                            <span class="emoji"></span>
+                            <div>
+                                <strong>Пшеничная 1с</strong>
+                                <span class="desc">Классический, мягкий</span>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="base" value="wheat-whole">
+                        <div class="card-content">
+                            <span class="emoji"></span>
+                            <div>
+                                <strong>Пшеничная цельнозерновая</strong>
+                                <span class="desc">Полезная, с клетчаткой</span>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="base" value="mix">
+                        <div class="card-content">
+                            <span class="emoji"></span>
+                            <div>
+                                <strong>Микс 3 муки</strong>
+                                <span class="desc">Ржаная + пшеничная 1с + цельнозерновая</span>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Шаг 2: Солод -->
+            <div class="step">
+                <h2>2. Добавить ржаной солод?</h2>
+                <p class="hint">Придаёт тёмный цвет и карамельный вкус</p>
+                <div class="options">
+                    <label class="option-card">
+                        <input type="radio" name="malt" value="yes" checked>
+                        <div class="card-content">
+                            <span class="emoji">✅</span>
+                            <div>
+                                <strong>Да, с солодом</strong>
+                                <span class="desc">Тёмный, ароматный</span>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="malt" value="no">
+                        <div class="card-content">
+                            <span class="emoji"></span>
+                            <div>
+                                <strong>Без солода</strong>
+                                <span class="desc">Светлее, нейтральнее</span>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Шаг 3: Добавки -->
+            <div class="step">
+                <h2>3. Добавки (необязательно)</h2>
+                <div class="options">
+                    <label class="option-card checkbox">
+                        <input type="checkbox" name="add-ons" value="flax">
+                        <div class="card-content">
+                            <span class="emoji">🌱</span>
+                            <div>
+                                <strong>Семена льна</strong>
+                                <span class="desc">+30 ₽</span>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="option-card checkbox">
+                        <input type="checkbox" name="add-ons" value="sesame">
+                        <div class="card-content">
+                            <span class="emoji">⚪</span>
+                            <div>
+                                <strong>Кунжут</strong>
+                                <span class="desc">+30 ₽</span>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="option-card checkbox">
+                        <input type="checkbox" name="add-ons" value="sunflower">
+                        <div class="card-content">
+                            <span class="emoji">🌻</span>
+                            <div>
+                                <strong>Семечки подсолнечника</strong>
+                                <span class="desc">+30 ₽</span>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="option-card checkbox">
+                        <input type="checkbox" name="add-ons" value="pumpkin">
+                        <div class="card-content">
+                            <span class="emoji">🎃</span>
+                            <div>
+                                <strong>Тыквенные семечки</strong>
+                                <span class="desc">+40 ₽</span>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Шаг 4: Количество -->
+            <div class="step">
+                <h2>4. Сколько буханок?</h2>
+                <div class="quantity-selector">
+                    <button class="qty-btn" id="qty-minus">−</button>
+                    <span class="qty-value" id="qty-value">1</span>
+                    <button class="qty-btn" id="qty-plus">+</button>
+                </div>
+                <p class="hint">1 буханки (~700 г) хватает семье из 2 человек на неделю</p>
+            </div>
+
+            <!-- Итого -->
+            <div class="total-block">
+                <div class="total-row">
+                    <span>Итого:</span>
+                    <span class="total-price" id="total-price">350 ₽</span>
+                </div>
+                <button class="order-btn" id="order-btn">
+                    📩 Отправить заказ Павлу
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ВКЛАДКА: О хлебе -->
+    <section id="tab-about" class="tab">
+        <div class="header">
+            <h1>📖 О хлебе</h1>
+        </div>
+        <div class="content">
+            <div class="info-card">
+                <h3>🦠 Что такое закваска?</h3>
+                <p>Ржаная закваска — это живая культура из муки и воды, в которой размножаются молочнокислые бактерии и дикие дрожжи. Она ферментирует тесто от 12 до 24 часов.</p>
+            </div>
+            <div class="info-card">
+                <h3>💪 Чем полезен бездрожжевой хлеб?</h3>
+                <ul>
+                    <li>Легче усваивается — не вызывает вздутия</li>
+                    <li>Ниже гликемический индекс</li>
+                    <li>Богат витаминами группы B</li>
+                    <li>Содержит полезные бактерии для кишечника</li>
+                    <li>Дольше остаётся свежим (5–7 дней)</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3>⏳ Почему так долго?</h3>
+                <p>Хлеб на закваске ферментируется 12–24 часа. Это нужно, чтобы бактерии расщепили фитиновую кислоту и сделали все полезные вещества доступными для усвоения. Магазинный хлеб делают за 2 часа — поэтому он менее полезен.</p>
+            </div>
+            <div class="info-card">
+                <h3> Как хранить?</h3>
+                <p>В бумажном пакете при комнатной температуре — до 7 дней. Можно заморозить нарезанным и доставать по кусочку.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ВКЛАДКА: Состав -->
+    <section id="tab-ingredients" class="tab">
+        <div class="header">
+            <h1>🌾 Состав и происхождение</h1>
+        </div>
+        <div class="content">
+            <div class="info-card">
+                <h3>🟤 Ржаная цельнозерновая мука</h3>
+                <p>Обогащает хлеб клетчаткой, железом и витаминами группы B. Придаёт характерный тёмный цвет и насыщенный вкус.</p>
+            </div>
+            <div class="info-card">
+                <h3> Пшеничная цельнозерновая мука</h3>
+                <p>Содержит зародыш и оболочку зерна — максимум пользы. Источник магния и фосфора.</p>
+            </div>
+            <div class="info-card">
+                <h3> Пшеничная мука 1 сорт</h3>
+                <p>Даёт хлебу мягкость и воздушность. Без неё хлеб был бы слишком плотным.</p>
+            </div>
+            <div class="info-card">
+                <h3> Натуральный ржаной солод</h3>
+                <p>Пророщенные и высушенные зёрна ржи. Придают карамельный аромат, тёмный цвет и дополнительные ферменты для брожения.</p>
+            </div>
+            <div class="info-card">
+                <h3>💧 Вода + 🧂 Соль</h3>
+                <p>Только фильтрованная вода и обычная соль. Никаких улучшителей, консервантов и разрыхлителей.</p>
+            </div>
+            <div class="info-card highlight">
+                <h3> Чего НЕТ в нашем хлебе:</h3>
+                <ul>
+                    <li>Промышленных дрожжей</li>
+                    <li>Консервантов (E200, E282 и др.)</li>
+                    <li>Улучшителей муки</li>
+                    <li>Сахара</li>
+                    <li>Растительных жиров</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ВКЛАДКА: Заказ -->
+    <section id="tab-order" class="tab">
+        <div class="header">
+            <h1>📦 Как заказать</h1>
+        </div>
+        <div class="content">
+            <div class="info-card">
+                <h3> График выпечки</h3>
+                <div class="schedule">
+                    <div class="schedule-day">
+                        <span class="day">Пятница</span>
+                        <span class="time">Утром пеку → вечером забираешь</span>
+                    </div>
+                    <div class="schedule-day">
+                        <span class="day">Понедельник</span>
+                        <span class="time">Утром пеку → вечером забираешь</span>
+                    </div>
+                </div>
+            </div>
+            <div class="info-card">
+                <h3>⏰ Дедлайн заказа</h3>
+                <p>Принимаю заказы <strong>до четверга 20:00</strong> (на пятницу) и <strong>до воскресенья 20:00</strong> (на понедельник). После — в следующий раз.</p>
+            </div>
+            <div class="info-card">
+                <h3>💰 Цена</h3>
+                <p class="price-big">350 ₽ / буханка (~700 г)</p>
+                <p>Доставка по Ясному берегу — <strong>бесплатно от 2 буханок</strong></p>
+            </div>
+            <div class="info-card">
+                <h3>📍 Самовывоз</h3>
+                <p>ул. Ясный Берег, 43</p>
+            </div>
+            <div class="info-card">
+                <h3>📩 Связаться</h3>
+                <p>Напиши мне в Telegram — отвечу на все вопросы и подтвержу заказ.</p>
+                <a href="https://t.me/USERNAME" class="telegram-btn">Написать Павлу →</a>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
