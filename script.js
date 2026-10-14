@@ -81,7 +81,7 @@ document.getElementById('order-btn').addEventListener('click', () => {
         pumpkin: 'Тыквенные семечки'
     };
     
-    let message = `🍞 Новый заказ хлеба!\n\n`;
+    let message = `🍞 Заказ хлеба:\n\n`;
     message += `Основа: ${baseNames[base]}\n`;
     message += `Солод: ${malt === 'yes' ? 'Да' : 'Нет'}\n`;
     if (addons.length) {
@@ -90,15 +90,24 @@ document.getElementById('order-btn').addEventListener('click', () => {
     message += `Количество: ${quantity} бух.\n`;
     message += `Итого: ${total} ₽`;
     
-    // Отправка через Telegram
+    // Показываем красивое уведомление через Telegram API
     if (tg) {
-        tg.sendData(message);
-        tg.close();
-    } else {
-        // Фоллбэк — копирование в буфер
-        navigator.clipboard.writeText(message).then(() => {
-            alert('Заказ скопирован! Отправь его Павлу в Telegram.');
+        tg.showPopup({
+            title: 'Заказ сформирован!',
+            message: 'Сейчас откроется чат с Павлом. Текст заказа уже вставлен — просто нажмите "Отправить".',
+            buttons: [
+                {type: 'ok', text: 'Открыть чат'}
+            ]
+        }, (buttonId) => {
+            if (buttonId === 'ok') {
+                const encodedMessage = encodeURIComponent(message);
+                tg.openTelegramLink(`https://t.me/pavel_bornovalov?text=${encodedMessage}`);
+            }
         });
+    } else {
+        // Фоллбэк для браузера
+        const encodedMessage = encodeURIComponent(message);
+        window.open(`https://t.me/pavel_bornovalov?text=${encodedMessage}`, '_blank');
     }
 });
 
